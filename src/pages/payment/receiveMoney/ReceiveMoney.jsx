@@ -2,7 +2,7 @@ import React from 'react'
 
 const ReceiveMoney = () => {
   return (
-    <div>
+    <div className='min-h-[7000px]'>
       Khoản chi
     </div>
   )

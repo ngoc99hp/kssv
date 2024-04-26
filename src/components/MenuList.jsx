@@ -8,55 +8,101 @@ import {
   PayCircleOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiReceiveMoney, GiElectric } from "react-icons/gi";
 import { GiPayMoney } from "react-icons/gi";
+import { IoWaterSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const MenuList = ({ darkTheme }) => {
   
   const navigate = useNavigate();
 
+  const menuItems = [
+    {
+      key: 'home',
+      icon: <HomeOutlined />,
+      label: 'Home',
+      onClick: () => navigate("/")
+    },
+    {
+      key: 'activity',
+      icon: <AppstoreOutlined />,
+      label: 'Activity'
+    },
+    {
+      key: 'tasks',
+      icon: <BarsOutlined />,
+      label: 'Tasks',
+      children: [
+        { key: 'task-1', label: 'Task 1' },
+        { key: 'task-2', label: 'Task 2' },
+        { key: 'task-3', label: 'Task 3' },
+        {
+          key: 'subtasks',
+          label: 'Subtasks',
+          children: [
+            { key: 'subtask-1', label: 'Task 1' },
+            { key: 'subtask-2', label: 'Task 2' }
+          ]
+        }
+      ]
+    },
+    {
+      key: 'progress',
+      icon: <AreaChartOutlined />,
+      label: 'Progress'
+    },
+    {
+      key: 'payment',
+      icon: <PayCircleOutlined />,
+      label: 'Payment',
+      children: [
+        {
+          key: 'receive-money',
+          icon: <GiReceiveMoney />,
+          label: 'ReceiveMoney',
+          onClick: () => navigate("/receive-money")
+        },
+        {
+          key: 'pay-money',
+          icon: <GiPayMoney />,
+          label: 'PayMoney',
+          onClick: () => navigate("/pay-money")
+        }
+      ]
+    },
+    {
+      key: 'setting',
+      icon: <SettingOutlined />,
+      label: 'Setting',
+      children: [
+        {
+          key : 'electricity_rates',
+          icon: <GiElectric  />,
+          label: 'Electricity rate',
+          onClick: () => navigate("/setting/electricity-rates")
+        },
+        {
+          key : 'water_rates',
+          icon: <IoWaterSharp />,
+          label: 'Water rate'
+        },
+      ]
+    }
+  ];
+
   return (
     <Menu
       theme={darkTheme ? "dark" : "light"}
       mode="inline"
-      className="h-[88vh] mt-[8px] flex flex-col gap-4 text-base relative"
-    >
-      <Menu.Item
-        key="home"
-        icon={<HomeOutlined />}
-        onClick={() => navigate("/home")}
-      >
-        Home
-      </Menu.Item>
-      <Menu.Item key="activity" icon={<AppstoreOutlined />}>
-        Activity
-      </Menu.Item>
-      <Menu.SubMenu key="tasks" icon={<BarsOutlined />} title="Tasks">
-        <Menu.Item key="task-1">Task 1</Menu.Item>
-        <Menu.Item key="task-2">Task 2</Menu.Item>
-        <Menu.Item key="task-3">Task 3</Menu.Item>
-        <Menu.SubMenu key="subtasks" title="Subtasks">
-          <Menu.Item key="subtask-1">Task 1</Menu.Item>
-          <Menu.Item key="subtask-2">Task 2</Menu.Item>
-        </Menu.SubMenu>
-      </Menu.SubMenu>
-      <Menu.Item key="progress" icon={<AreaChartOutlined />}>
-        Progress
-      </Menu.Item>
-      <Menu.SubMenu key="payment" icon={<PayCircleOutlined />} title="Payment">
-        <Menu.Item key="receive-money" icon={<GiReceiveMoney />} onClick={() => navigate("/receive-money")}>
-          ReceiveMoney
-        </Menu.Item>
-        <Menu.Item key="pay-money" icon={<GiPayMoney />} onClick={() => navigate("/pay-money")}>
-          PayMoney
-        </Menu.Item>
-      </Menu.SubMenu>
-      <Menu.Item key="setting" icon={<SettingOutlined />}>
-        Setting
-      </Menu.Item>
-    </Menu>
+      className="mt-[8px] flex flex-col gap-4 text-base relative select-none"
+      items={menuItems}
+    />
   );
 };
 
 export default MenuList;
+
+
+
+

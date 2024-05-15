@@ -40,7 +40,7 @@ import ReceiveMoney from "./pages/payment/receiveMoney/ReceiveMoney";
 import PayMoney from "./pages/payment/payMoney/PayMoney";
 import ElectricityRates from "./pages/setting/electricity_rates/ElectricityRates";
 import WaterRates from "./pages/setting/water_rates/WaterRates";
-
+import Progress from "./pages/progress/progress";
 //COmponent
 import ToggleThemeButton from "./components/ToggleThemeButton";
 import Logo from "./components/Logo";
@@ -51,7 +51,7 @@ const { Header, Sider, Content } = Layout;
 
 function DefaultLayout() {
   const [darkTheme, setDarkTheme] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
   };
@@ -145,6 +145,7 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/receive-money" element={<ReceiveMoney />} />
               <Route path="/pay-money" element={<PayMoney />} />
+              <Route path="/progress" element={<Progress />} />
               <Route path="/setting/electricity-rates" element={<ElectricityRates />} />
               <Route path="/water-rates" element={<WaterRates />} />
             </Route>

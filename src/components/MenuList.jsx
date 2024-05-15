@@ -50,7 +50,8 @@ const MenuList = ({ darkTheme }) => {
     {
       key: 'progress',
       icon: <AreaChartOutlined />,
-      label: 'Progress'
+      label: 'Progress',
+      onClick: () => navigate("/progress")
     },
     {
       key: 'payment',

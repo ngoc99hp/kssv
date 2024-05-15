@@ -60,11 +60,15 @@ export default function Content() {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      const res = await createClerkUser(
-        insertData.user_name,
-        insertData.email,
-        insertData.password,
-      );
+      const res = await axios({
+        url: "/src/api/create-user",
+        method: "post",
+        data: {
+          userName: insertData.user_name,
+          password: insertData.password,
+          email: insertData.email,
+        },
+      });
       if (res.status === 200) {
         let objects = {
           name: insertData.name,

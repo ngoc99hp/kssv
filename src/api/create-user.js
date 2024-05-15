@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         url: 'https://api.clerk.dev/v1/users',
         method: 'post',
         data: {
-          email_addresses: [{ email_address: email }],
+          email_addresses: [email],
           username: userName,
           password: password,
           skip_password_checks: true,

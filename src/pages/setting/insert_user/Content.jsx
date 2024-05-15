@@ -23,7 +23,7 @@ export default function Content() {
     });
   };
 
-  console.log(insertData);
+  // console.log(insertData);
 
   const mutation = useMutation({
     mutationFn: async (objects) => {
@@ -60,7 +60,7 @@ export default function Content() {
     async (e) => {
       e.preventDefault();
       const res = await axios({
-        url: "/src/api/create-user",
+        url: "/api/create-user",
         method: "post",
         data: {
           userName: insertData.user_name,

@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { createClerkUser } from "../../../api/createClerkUser";
 
 export default function Content() {
   const [mutating, setMutating] = useState(false);

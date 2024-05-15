@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Edit = ({ data }) => {
   const [mutating, setMutating] = useState(false);
@@ -28,7 +29,7 @@ const Edit = ({ data }) => {
   const mutation = useMutation({
     mutationFn: async (changes) => {
       return await axios({
-        url: import.meta.env.VITE_UPDATE_ELECTRICITY_RATE,
+        url: import.meta.env.VITE_UPDATE_WATER_RATE,
         method: "put",
         headers: {
           "content-type": "Application/json",
@@ -44,13 +45,13 @@ const Edit = ({ data }) => {
     },
     onSuccess: () => {
       setMutating(false);
-      queryClient.invalidateQueries({ queryKey: ["GET_ELECTRICITY_RATES"] });
+      queryClient.invalidateQueries({ queryKey: ["GET_WATER_RATES"] });
       setUpdateData({
         rate: "",
         start_date: "",
         end_date: "",
       });
-      toast.success("Chỉnh sửa đơn giá điện thành công!");
+      toast.success("Chỉnh sửa đơn giá nước thành công!");
       const modalCheckbox = document.getElementById(`modal_fix_${data.id}`);
       if (modalCheckbox) {
         modalCheckbox.checked = false;
@@ -58,7 +59,7 @@ const Edit = ({ data }) => {
     },
     onError: () => {
       setMutating(false);
-      toast.error("Chỉnh sửa đơn giá điện không thành công!");
+      toast.error("Chỉnh sửa đơn giá nước không thành công!");
     },
   });
 
@@ -96,7 +97,7 @@ const Edit = ({ data }) => {
               className="flex flex-col gap-[20px] mt-[20px] "
               style={{ overflowY: "unset" }}
             >
-              <h3 className="self-center">Chỉnh sửa đơn giá điện</h3>
+              <h3 className="self-center">Chỉnh sửa đơn giá nước</h3>
 
               <div>
                 <label
@@ -191,9 +192,7 @@ export default function Item({ data, index }) {
           >
             <LiaEditSolid size={20} />
           </label>
-          <>
-            <Edit data={data} />
-          </>
+          <Edit data={data} />
         </>
       </td>
     </tr>

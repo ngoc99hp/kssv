@@ -1,20 +1,17 @@
-import formatToVND from "../../../components/formatToVND";
-import formatDate from "../../../components/formatDate";
-import { LiaEditSolid } from "react-icons/lia";
 import React, { useCallback, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaRegEdit } from "react-icons/fa";
 
 const Edit = ({ data }) => {
   const [mutating, setMutating] = useState(false);
   const queryClient = useQueryClient();
   const { getToken } = useAuth();
   const [updateData, setUpdateData] = useState({
-    rate: data.rate,
-    start_date: data.start_date,
-    end_date: data.end_date,
+    end_water: data.end_water,
+    end_electricity: data.end_electricity,
   });
 
   const handleInputChange = (e) => {
@@ -28,12 +25,12 @@ const Edit = ({ data }) => {
   const mutation = useMutation({
     mutationFn: async (changes) => {
       return await axios({
-        url: import.meta.env.VITE_UPDATE_ELECTRICITY_RATE,
+        url: import.meta.env.VITE_UPDATE_MONTH_BILL,
         method: "put",
         headers: {
           "content-type": "Application/json",
           authorization: `Bearer ${await getToken({
-            template: import.meta.env.VITE_TEMPLATE_SUPER_ADMIN,
+            template: import.meta.env.VITE_TEMPLATE_USER,
           })}`,
         },
         data: {
@@ -44,13 +41,12 @@ const Edit = ({ data }) => {
     },
     onSuccess: () => {
       setMutating(false);
-      queryClient.invalidateQueries({ queryKey: ["GET_ELECTRICITY_RATES"] });
+      queryClient.invalidateQueries({ queryKey: ["GET_NUM_MONTH"] });
       setUpdateData({
-        rate: "",
-        start_date: "",
-        end_date: "",
+        end_water: "",
+        end_electricity: "",
       });
-      toast.success("Chỉnh sửa đơn giá điện thành công!");
+      toast.success("Chỉnh sửa chỉ số điện, nước thành công!");
       const modalCheckbox = document.getElementById(`modal_fix_${data.id}`);
       if (modalCheckbox) {
         modalCheckbox.checked = false;
@@ -58,7 +54,7 @@ const Edit = ({ data }) => {
     },
     onError: () => {
       setMutating(false);
-      toast.error("Chỉnh sửa đơn giá điện không thành công!");
+      toast.error("Chỉnh sửa chỉ số điện, nước không thành công!");
     },
   });
 
@@ -96,58 +92,44 @@ const Edit = ({ data }) => {
               className="flex flex-col gap-[20px] mt-[20px] "
               style={{ overflowY: "unset" }}
             >
-              <h3 className="self-center">Chỉnh sửa đơn giá điện</h3>
+              <h3 className="self-center">Chỉnh sửa chỉ số điện, nước</h3>
 
               <div>
                 <label
                   className="block text-base font-medium text-gray-700"
-                  htmlFor="rate"
+                  htmlFor="end_water"
                 >
-                  Đơn giá
+                  Số nước
                 </label>
                 <div className="mt-1">
                   <input
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                     type="number"
-                    placeholder="eq: 1000"
-                    name="rate"
-                    id="rate"
-                    value={updateData.rate}
+                    name="end_water"
+                    id="end_water"
+                    value={updateData.end_water}
                     onChange={handleInputChange}
                   />
                 </div>
               </div>
-
-              <div className="mt-6">
-                <label className="block text-base font-medium text-gray-700">
-                  Thời gian áp dụng
+              <div>
+                <label
+                  className="block text-base font-medium text-gray-700"
+                  htmlFor="end_electricity"
+                >
+                  Số nước
                 </label>
-                <div className="mt-1 flex justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm	">Từ</p>
-                    <input
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      required
-                      type="date"
-                      name="start_date"
-                      id="start_date"
-                      value={updateData.start_date}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm	">Đến</p>
-                    <input
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      required
-                      type="date"
-                      name="end_date"
-                      id="end_date"
-                      value={updateData.end_date}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                <div className="mt-1">
+                  <input
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                    type="number"
+                    name="end_electricity"
+                    id="end_electricity"
+                    value={updateData.end_electricity}
+                    onChange={handleInputChange}
+                  />
                 </div>
               </div>
 
@@ -175,27 +157,29 @@ const Edit = ({ data }) => {
   );
 };
 
-export default function Item({ data, index }) {
+export default function NumMonth({ data, index }) {
   return (
-    <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-      <th>{index + 1}</th>
-      <td>{formatToVND(data.rate)}</td>
-      <td>{formatDate(data.start_date)}</td>
-      <td>{formatDate(data.end_date)}</td>
-      <td>
+    <>
+      <tr>
+        <th>{index + 1}</th>
+        <td>{data.category_room?.name}</td>
+        <td>{data?.end_water}</td>
+        <td>{data?.end_electricity}</td>
+        <td>
         <>
           <label
             htmlFor={`modal_fix_${data.id}`}
             className="btn btn-sm btn-ghost w-fit items-center tooltip flex justify-center"
             data-tip="Chỉnh sửa"
           >
-            <LiaEditSolid size={20} />
+            <FaRegEdit size={20} />
           </label>
           <>
             <Edit data={data} />
           </>
         </>
-      </td>
-    </tr>
+        </td>
+      </tr>
+    </>
   );
 }

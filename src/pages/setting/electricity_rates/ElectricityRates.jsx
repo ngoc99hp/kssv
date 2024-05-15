@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
 import Content from "./Content";
 
 const Skeleton = () => {
@@ -45,27 +46,9 @@ const ElectricityRates = () => {
 
   // console.log(role.data);
 
-  // const preData = useQuery({
-  //   queryKey: ["GET_PREDATA"],
-  //   queryFn: async () => {
-  //     return await axios({
-  //       url: import.meta.env.VITE_GET_ELECTRICITY_RATES,
-  //       method: "get",
-  //       headers: {
-  //         "content-type": "Application/json",
-  //         authorization: `Bearer ${await getToken({
-  //           template: import.meta.env.VITE_TEMPLATE_SUPER_ADMIN,
-  //         })}`,
-  //       },
-  //     }).then((res) => res.data.result);
-  //   },
-  // });
-  // console.log(preData.data)
-
-  const [preData,setPreData] = useState();
-
-  useEffect(() => {
-    let callApi = async () => {
+  const preData = useQuery({
+    queryKey: ["GET_PREDATA"],
+    queryFn: async () => {
       return await axios({
         url: import.meta.env.VITE_GET_ELECTRICITY_RATES,
         method: "get",
@@ -75,14 +58,33 @@ const ElectricityRates = () => {
             template: import.meta.env.VITE_TEMPLATE_SUPER_ADMIN,
           })}`,
         },
-      }).then((res) => setPreData(res.data.result));
-    };
-    callApi();
-  }, []);
+      }).then((res) => res.data.result);
+    },
+  });
+
+  // console.log(preData.data)
+
+  // useEffect(() => {
+  //   let callApi = async () => {
+  //     return await axios({
+  //       url: import.meta.env.VITE_GET_ELECTRICITY_RATES,
+  //       method: "get",
+  //       headers: {
+  //         "content-type": "Application/json",
+  //         authorization: `Bearer ${await getToken({
+  //           template: import.meta.env.VITE_TEMPLATE_SUPER_ADMIN,
+  //         })}`,
+  //       },
+  //     }).then((res) => setPreData(res.data.result));
+  //   };
+  //   callApi();
+  // }, []);
 
   if (
     role.isFetching ||
-    role.isLoading 
+    role.isLoading ||
+    preData.isFetching ||
+    preData.isLoading
   ) {
     return (
       <div>
@@ -118,7 +120,6 @@ const ElectricityRates = () => {
   }
 
   return <Content preData={preData.data} />;
-  // return 1;
 };
 
 export default ElectricityRates;

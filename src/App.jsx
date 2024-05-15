@@ -36,12 +36,13 @@ import SignInPage from "./hardcomponents/signIn/SignInPage";
 
 import Home from "./pages/home/Home";
 import Users from "./pages/users/Users";
-import ReceiveMoney from "./pages/payment/receiveMoney/ReceiveMoney";
-import PayMoney from "./pages/payment/payMoney/PayMoney";
 import ElectricityRates from "./pages/setting/electricity_rates/ElectricityRates";
 import WaterRates from "./pages/setting/water_rates/WaterRates";
+import NumWaterElectric from "./pages/payment/num_water_electric/NumWaterElectric";
+import MonthBills from "./pages/payment/month_bill/MonthBills";
+import InsertUser from "./pages/setting/insert_user/InsertUser";
 
-//COmponent
+//Component
 import ToggleThemeButton from "./components/ToggleThemeButton";
 import Logo from "./components/Logo";
 import MenuList from "./components/MenuList";
@@ -50,7 +51,7 @@ import BreadCrumb from "./components/BreadCrumb";
 const { Header, Sider, Content } = Layout;
 
 function DefaultLayout() {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
@@ -102,7 +103,7 @@ function DefaultLayout() {
           />
           <div className="m-[20px]">
             <SignOutButton>
-              <button>Sign out</button>
+              <button>Đăng xuất</button>
             </SignOutButton>
           </div>
         </Header>
@@ -118,12 +119,12 @@ function DefaultLayout() {
           {/* ======== Content ========== */}
           <div
             style={{
-              zIndex: 1,
+              zIndex: 10,
               padding: 24,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
-            className=""
+            className="min-h-[810px]"
           >
             <Outlet />
           </div>
@@ -143,10 +144,11 @@ function App() {
             <Route path="/" element={<DefaultLayout />}>
               <Route index element={<Home />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/receive-money" element={<ReceiveMoney />} />
-              <Route path="/pay-money" element={<PayMoney />} />
               <Route path="/setting/electricity-rates" element={<ElectricityRates />} />
-              <Route path="/water-rates" element={<WaterRates />} />
+              <Route path="/setting/water-rates" element={<WaterRates />} />
+              <Route path="/num-water-electric" element={<NumWaterElectric />} />
+              <Route path="/month-bills" element={<MonthBills />} />
+              <Route path="/setting/insert-user" element={<InsertUser />} />
             </Route>
             <Route path="/sign-in" element={<SignInPage />} />
           </Routes>

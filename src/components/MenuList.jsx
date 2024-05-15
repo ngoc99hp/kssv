@@ -12,6 +12,9 @@ import { GiReceiveMoney, GiElectric } from "react-icons/gi";
 import { GiPayMoney } from "react-icons/gi";
 import { IoWaterSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { RiWaterFlashLine } from "react-icons/ri";
+import { FaMoneyBillWave } from "react-icons/fa6";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const MenuList = ({ darkTheme }) => {
   
@@ -55,37 +58,44 @@ const MenuList = ({ darkTheme }) => {
     {
       key: 'payment',
       icon: <PayCircleOutlined />,
-      label: 'Payment',
+      label: 'Tài chính',
       children: [
         {
-          key: 'receive-money',
-          icon: <GiReceiveMoney />,
-          label: 'ReceiveMoney',
-          onClick: () => navigate("/receive-money")
+          key : 'num-water-electric',
+          icon: <RiWaterFlashLine />,
+          label: 'Chỉ số điện, nước',
+          onClick: () => navigate("/num-water-electric")
         },
         {
-          key: 'pay-money',
-          icon: <GiPayMoney />,
-          label: 'PayMoney',
-          onClick: () => navigate("/pay-money")
+          key : 'month-bills',
+          icon: <FaMoneyBillWave />,
+          label: 'Hoá đơn hàng tháng',
+          onClick: () => navigate("/month-bills")
         }
       ]
     },
     {
       key: 'setting',
       icon: <SettingOutlined />,
-      label: 'Setting',
+      label: 'Cài đặt',
       children: [
+        {
+          key : 'insert_user',
+          icon: <FaRegCircleUser />,
+          label: 'Tạo tài khoản',
+          onClick: () => navigate("/setting/insert-user")
+        },
         {
           key : 'electricity_rates',
           icon: <GiElectric  />,
-          label: 'Electricity rate',
+          label: 'Đơn giá điện',
           onClick: () => navigate("/setting/electricity-rates")
         },
         {
           key : 'water_rates',
           icon: <IoWaterSharp />,
-          label: 'Water rate'
+          label: 'Đơn giá nước',
+          onClick: () => navigate("/setting/water-rates")
         },
       ]
     }

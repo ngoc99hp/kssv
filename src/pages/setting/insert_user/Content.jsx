@@ -1,3 +1,4 @@
+//src/setting/insert_user/Content.jsx
 import React, { useCallback, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
@@ -60,7 +61,7 @@ export default function Content() {
     async (e) => {
       e.preventDefault();
       const res = await axios({
-        url: "/api/create-user",
+        url: '/api/create-user',
         method: "post",
         data: {
           userName: insertData.user_name,
@@ -68,6 +69,9 @@ export default function Content() {
           email: insertData.email,
         },
       });
+
+      console.log(res)
+      
       if (res.status === 200) {
         let objects = {
           name: insertData.name,

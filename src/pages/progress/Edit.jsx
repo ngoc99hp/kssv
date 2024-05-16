@@ -1,4 +1,4 @@
-import TextInput from "./../../components/textInput";
+import TextInput from "../../components/textInput";
 import { useReducer } from "react";
 function Reducer(state, action) {
   switch (action.type) {
@@ -22,20 +22,14 @@ function Reducer(state, action) {
     }
   }
 }
-export default function Add() {
+export default function Edit() {
   const [data, dispatchData] = useReducer(Reducer, {
     ten: "",
     mo_ta: "",
   });
   return (
     <div>
-      <button
-        className="btn"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
-      >
-        Thêm mới
-      </button>
-      <dialog id="my_modal_3" className="modal">
+      <dialog id="edit" className="modal">
         <div className="modal-box ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -46,14 +40,14 @@ export default function Add() {
           <div className="bg-cover bg-center flex justify-center items-center">
             <div className=" mx-auto  max-w-2xl space-y-6  p-6 rounded-lg bg-white bg-opacity-80">
               <div className="space-y-2 text-center">
-                <h1 className="text-3xl font-bold ">Đăng ký tài khoản</h1>
+                <h1 className="text-3xl font-bold ">Chính sửa tài khoản</h1>
                 <p className="text-gray-500 dark:text-gray-500">
                   Hệ thống kiểm soát vào ra
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                  <TextInput
+                <TextInput
                     value={data.mo_ta}
                     label={
                       <span>
@@ -129,7 +123,7 @@ export default function Add() {
                     isRequire={true}
                     action={"mo_ta"}
                   />
-                  <TextInput
+                   <TextInput
                     value={data.mo_ta}
                     label={ <span>
                       Đơn vị công tác
@@ -139,12 +133,13 @@ export default function Add() {
                     isRequire={true}
                     action={"mo_ta"}
                   />
-                 
-                 
                 </div>
-                <div className="flex justify-center items-center ">
+                <div className="flex justify-center items-center  gap-5">
                   <button className=" bg-transparent text-green-500 border border-green-500 hover:text-black hover:bg-green-500 hover:border-black py-2 px-4 rounded">
-                    Đăng ký
+                    Cập nhật
+                  </button>
+                  <button className=" bg-transparent text-gray-500 border border-gray-400 hover:text-black hover:bg-red-500 hover:border-black py-2 px-4 rounded">
+                    Buộc dừng
                   </button>
                 </div>
               </div>

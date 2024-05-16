@@ -48,9 +48,9 @@ const MenuList = ({ darkTheme }) => {
       ]
     },
     {
-      key: 'progress',
+      key: 'Thông tin người thuê',
       icon: <AreaChartOutlined />,
-      label: 'Progress',
+      label: 'Thông tin người thuê',
       onClick: () => navigate("/progress")
     },
     {

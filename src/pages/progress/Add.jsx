@@ -1,32 +1,101 @@
 import TextInput from "./../../components/textInput";
 import { useReducer } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 function Reducer(state, action) {
   switch (action.type) {
+    case "ma": {
+      return {
+        ...state,
+        ma: action.payload.value,
+      };
+    }
+
+    case "ho_dem": {
+      return {
+        ...state,
+        ho_dem: action.payload.value,
+      };
+    }
+
     case "ten": {
       return {
         ...state,
         ten: action.payload.value,
       };
     }
-    case "mo_ta": {
+
+    case "email": {
       return {
         ...state,
-        mo_ta: action.payload.value,
+        email: action.payload.value,
       };
     }
+
+    case "sdt": {
+      return {
+        ...state,
+        sdt: action.payload.value,
+      };
+    }
+
+    case "dia_chi": {
+      return {
+        ...state,
+        dia_chi: action.payload.value,
+      };
+    }
+
+    case "cccd": {
+      return {
+        ...state,
+        cccd: action.payload.value,
+      };
+    }
+
+    case "dvct": {
+      return {
+        ...state,
+        dvct: action.payload.value,
+      };
+    }
+
     case "reset": {
       return {
+        ma: "",
+        ho_dem: "",
         ten: "",
-        mo_ta: "",
+        email: "",
+        sdt: "",
+        dia_chi: "",
+        cccd: "",
+        dvct: "",
       };
     }
   }
 }
 export default function Add() {
   const [data, dispatchData] = useReducer(Reducer, {
+    ma: "",
+    ho_dem: "",
     ten: "",
-    mo_ta: "",
+    email: "",
+    sdt: "",
+    dia_chi: "",
+    cccd: "",
+    dvct: "",
   });
+
+  const mutation = useMutation({
+    mutationFn: () => axios({ url: "/api/ncheck", method: "post", data }),
+    onSuccess: () => {
+      console.log(1);
+    },
+    onError: () => {
+      console.log(2);
+    },
+  });
+
   return (
     <div>
       <button
@@ -54,96 +123,104 @@ export default function Add() {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <TextInput
-                    value={data.mo_ta}
+                    value={data.ma}
                     label={
                       <span>
                         Mã người thuê <span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"ma"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"ma"}
                   />
                   <TextInput
-                    value={data.mo_ta}
+                    value={data.ho_dem}
                     label={
                       <span>
                         Họ, tên đệm<span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"ho_dem"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"ho_dem"}
                   />
                   <TextInput
-                    value={data.mo_ta}
+                    value={data.ten}
                     label={
                       <span>
                         Tên<span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"ten"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"ten"}
                   />
                   <TextInput
-                    value={data.mo_ta}
-                    label={ <span>
-                      Email<span className="text-red-600"> *</span>
-                    </span>}
+                    value={data.email}
+                    label={
+                      <span>
+                        Email<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"email"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"email"}
                   />
                   <TextInput
-                    value={data.mo_ta}
-                    label={ <span>
-                      Số điện thoại<span className="text-red-600"> *</span>
-                    </span>}
+                    value={data.sdt}
+                    label={
+                      <span>
+                        Số điện thoại<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"sdt"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"sdt"}
                   />
                   <TextInput
-                    value={data.mo_ta}
-                    label={ <span>
-                      Địa chỉ<span className="text-red-600"> *</span>
-                    </span>}
+                    value={data.dia_chi}
+                    label={
+                      <span>
+                        Địa chỉ<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"dia_chi"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"dia_chi"}
                   />
                   <TextInput
-                    value={data.mo_ta}
-                    label={ <span>
-                      Số căn cước công dân<span className="text-red-600"> *</span>
-                    </span>}
+                    value={data.cccd}
+                    label={
+                      <span>
+                        Số căn cước công dân
+                        <span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"cccd"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"cccd"}
                   />
                   <TextInput
-                    value={data.mo_ta}
-                    label={ <span>
-                      Đơn vị công tác
-                    </span>}
+                    value={data.dvct}
+                    label={<span>Đơn vị công tác</span>}
                     dispatch={dispatchData}
-                    id={"mo_ta"}
+                    id={"dvct"}
                     isRequire={true}
-                    action={"mo_ta"}
+                    action={"dvct"}
                   />
-                 
-                 
                 </div>
                 <div className="flex justify-center items-center ">
-                  <button className=" bg-transparent text-green-500 border border-green-500 hover:text-black hover:bg-green-500 hover:border-black py-2 px-4 rounded">
+                  <button
+                    onClick={() => mutation.mutate()}
+                    className=" bg-transparent text-green-500 border border-green-500 hover:text-black hover:bg-green-500 hover:border-black py-2 px-4 rounded"
+                  >
                     Đăng ký
                   </button>
                 </div>

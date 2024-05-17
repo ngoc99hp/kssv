@@ -45,9 +45,9 @@ export default function Content({preData}) {
 
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center h-[762px]">
       <Add />
-      <div className="overflow-x-auto">
+      <div className="w-2/3 overflow-x-auto">
         <table className="table">
           <thead>
             <tr>

@@ -43,7 +43,7 @@ const SignInPage = () => {
     <div className="h-screen flex justify-center items-center bg-[#e8e8e8]">
       <div className="max-w-md relative flex flex-col p-6 rounded-md text-black bg-white">
         <div className="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">
-          Welcome back to <span className="text-[#7747ff]">App</span>
+          Welcome back to <span className="text-[#7747ff]">HPU</span>
         </div>
         <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">
           Log in to your account

@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { RiWaterFlashLine } from "react-icons/ri";
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { LuUsers } from "react-icons/lu";
 
 const MenuList = ({ darkTheme }) => {
   
@@ -84,6 +85,12 @@ const MenuList = ({ darkTheme }) => {
           icon: <FaRegCircleUser />,
           label: 'Tạo tài khoản',
           onClick: () => navigate("/setting/insert-user")
+        },
+        {
+          key : 'role',
+          icon: <LuUsers />,
+          label: 'Phân quyền',
+          onClick: () => navigate("/setting/role")
         },
         {
           key : 'electricity_rates',

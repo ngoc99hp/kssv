@@ -5,6 +5,7 @@ import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer} from 'react-toastify'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,5 +27,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         pauseOnHover={false}
       />
     </React.StrictMode>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

@@ -7,6 +7,7 @@ import { RiSaveLine } from "react-icons/ri";
 
 export default function Item({ data, index }) {
   // console.log("dữ liệu", data);
+  const queryClient = useQueryClient();
 
   const [mutating, setMutating] = useState(false);
   // const queryClient = useQueryClient();
@@ -31,7 +32,7 @@ export default function Item({ data, index }) {
     },
     onSuccess: () => {
       setMutating(false);
-      // queryClient.invalidateQueries({ queryKey: ["GET_ELECTRICITY_RATES"] });
+      queryClient.invalidateQueries({ queryKey: ["GET_NUM_MONTH"] });
       toast.success("Thêm mới số điện nước thành công!");
     },
     onError: () => {
@@ -48,7 +49,7 @@ export default function Item({ data, index }) {
       end_electricity: Number(endElectricity),
       end_water: (endWater),
     };
-    console.log("insertData: ", insertData);
+    // console.log("insertData: ", insertData);
     setMutating(true);
     mutation.mutate(insertData);
   };

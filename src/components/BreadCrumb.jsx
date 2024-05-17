@@ -31,6 +31,10 @@ const funcionData = [
     pathName: "insert-user",
     pageName: "Tạo tài khoản"
   },
+  {
+    pathName: "role",
+    pageName: "Phân quyền"
+  },
 ];
 
 const BreadCrumb = () => {

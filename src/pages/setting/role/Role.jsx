@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Content from "./Content";
 
-export default function MonthBills() {
+export default function Role() {
   const { getToken } = useAuth();
 
   const role = useQuery({
@@ -23,8 +23,6 @@ export default function MonthBills() {
     },
   });
 
-  
-
   if (role.isFetching || role.isLoading)
     return (
       <div className="flex flex-col gap-4 w-52">
@@ -39,8 +37,9 @@ export default function MonthBills() {
       </div>
     );
 
-  if (role.data?.role_id.toString() !== import.meta.env.VITE_ROLE_MANAGER) {
+  if (role.data?.role_id.toString() !== import.meta.env.VITE_ROLE_ADMIN) {
     return <>Tài khoản không có quyền thực hiện chức năng này</>;
   }
+
   return <Content />;
 }

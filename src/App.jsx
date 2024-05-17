@@ -41,6 +41,7 @@ import WaterRates from "./pages/setting/water_rates/WaterRates";
 import NumWaterElectric from "./pages/payment/num_water_electric/NumWaterElectric";
 import MonthBills from "./pages/payment/month_bill/MonthBills";
 import InsertUser from "./pages/setting/insert_user/InsertUser";
+import Role from "./pages/setting/role/Role";
 
 //Component
 import ToggleThemeButton from "./components/ToggleThemeButton";
@@ -52,7 +53,7 @@ const { Header, Sider, Content } = Layout;
 
 function DefaultLayout() {
   const [darkTheme, setDarkTheme] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
   };
@@ -149,6 +150,7 @@ function App() {
               <Route path="/num-water-electric" element={<NumWaterElectric />} />
               <Route path="/month-bills" element={<MonthBills />} />
               <Route path="/setting/insert-user" element={<InsertUser />} />
+              <Route path="/setting/role" element={<Role />} />
             </Route>
             <Route path="/sign-in" element={<SignInPage />} />
           </Routes>

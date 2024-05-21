@@ -1,7 +1,8 @@
 import TextInput from "./../../components/textInput";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import Select from "react-select";
 function Reducer(state, action) {
   switch (action.type) {
     case "ma": {
@@ -74,7 +75,8 @@ function Reducer(state, action) {
     }
   }
 }
-export default function Add() {
+export default function Add({ gender, tenant }) {
+  const [selected, setSelected] = useState({ gender: null, tenant: null });
   const [data, dispatchData] = useReducer(Reducer, {
     ma: "",
     ho_dem: "",
@@ -87,7 +89,24 @@ export default function Add() {
   });
 
   const mutation = useMutation({
-    mutationFn: () => axios({ url: "/api/ncheck", method: "post", data }),
+    mutationFn: () =>
+      axios({
+        url: "/api/ncheck",
+        method: "post",
+        data: {
+          ma: data.ma,
+          ho_dem: data.ho_dem,
+          ten: data.ten,
+          email: data.email,
+          sdt: data.sdt,
+          dia_chi: data.dia_chi,
+          cccd: data.cccd,
+          dvct: data.dvct,
+          gender: selected.gender,
+          tenant: selected.tenant,
+          type: "I",
+        },
+      }),
     onSuccess: () => {
       console.log(1);
     },
@@ -214,6 +233,42 @@ export default function Add() {
                     id={"dvct"}
                     isRequire={true}
                     action={"dvct"}
+                  />
+                  <Select
+                    placeholder="Giới tính"
+                    className="text-black text-sm my-5"
+                    classNames={{
+                      control: () => "!rounded-[5px]",
+                      input: () => "!pr-2.5 !pb-2.5 !pt-4 !m-0",
+                      valueContainer: () => "!p-[0_8px]",
+                      menu: () => "!z-[11]",
+                    }}
+                    options={gender.map((item) => ({
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                    value={selected.gender}
+                    onChange={(e) =>
+                      setSelected((pre) => ({ ...pre, gender: e }))
+                    }
+                  />
+                  <Select
+                    placeholder="Quyền"
+                    className="text-black text-sm my-5"
+                    classNames={{
+                      control: () => "!rounded-[5px]",
+                      input: () => "!pr-2.5 !pb-2.5 !pt-4 !m-0",
+                      valueContainer: () => "!p-[0_8px]",
+                      menu: () => "!z-[11]",
+                    }}
+                    options={tenant.map((item) => ({
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                    value={selected.tenant}
+                    onChange={(e) =>
+                      setSelected((pre) => ({ ...pre, tenant: e }))
+                    }
                   />
                 </div>
                 <div className="flex justify-center items-center ">

@@ -42,7 +42,7 @@ import NumWaterElectric from "./pages/payment/num_water_electric/NumWaterElectri
 import MonthBills from "./pages/payment/month_bill/MonthBills";
 import InsertUser from "./pages/setting/insert_user/InsertUser";
 import Role from "./pages/setting/role/Role";
-
+import Progress from "./pages/progress/progress";
 //Component
 import ToggleThemeButton from "./components/ToggleThemeButton";
 import Logo from "./components/Logo";
@@ -147,6 +147,7 @@ function App() {
                 path="/setting/electricity-rates"
                 element={<ElectricityRates />}
               />
+              <Route path="/progress" element={<Progress />} />
               <Route path="/setting/water-rates" element={<WaterRates />} />
               <Route
                 path="/num-water-electric"

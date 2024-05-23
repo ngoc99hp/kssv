@@ -46,6 +46,15 @@ const MenuList = ({ darkTheme }) => {
           ]
         }
       ]
+    },{
+      key: 'danhmuc',
+      icon: <BarsOutlined />,
+      label: 'Danh Mục',
+      children: [
+        { key: 'task-1', label: 'Khu nhà',onClick: () => navigate("/danhmuckhunha") },
+        { key: 'task-2', label: 'Đối tượng thuê',onClick: () => navigate("/danhmucdoituongthue") },
+        { key: 'task-3', label: 'Phòng' ,onClick: () => navigate("/danhmucphong")},
+      ]
     },
     {
       key: 'Thông tin người thuê',

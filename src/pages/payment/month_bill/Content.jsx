@@ -4,10 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Item from "./Item";
 import SkeletonTable from "../../../components/SkeletonTable";
-
+import ExportExcel from "../../../components/ExportExcel";
 
 export default function Content() {
   const { getToken } = useAuth();
+  const [dataExcel, setDataExcel] = useState([]);
   // Lấy ngày hôm nay
   const today = new Date();
   // Mặc định tháng, ngày bắt đầu và ngày kết thúc
@@ -34,6 +35,11 @@ export default function Content() {
     setMonth(newMonth + "-01");
     setStartDate(newMonth + "-01");
   };
+
+  const [vnyear, vnmonth] = selectedMonth.split("-");
+  const vnMonth = `${vnmonth} Năm ${vnyear}`;
+  console.log(vnMonth)
+
   const preData = useQuery({
     queryKey: ["GET_ROOMS_MONTH_BILLS"],
     queryFn: async () => {
@@ -58,6 +64,32 @@ export default function Content() {
   };
 
   // console.log(preData.data);
+
+  useEffect(() => {
+    if (preData.data && preData.data.length > 0) {
+      const formattedData = preData.data.map((item, index) => ({
+        room: item.category_room?.name,
+        current_num_tenants: item.current_num_tenants,
+        max_tenants: item.category_room?.max_tenant,
+        start_date: item.start_date,
+        end_date: item.end_date,
+        start_water: item.start_water,
+        end_water: item.end_water,
+        start_electricity: item.start_electricity,
+        end_electricity: item.end_electricity,
+        water_price: item.water_price,
+        electricity_price: item.electricity_price,
+        total_water_charge: item.total_water_charge,
+        total_electricity_charge: item.total_electricity_charge,
+        room_price: item.room_price,
+        total_revenue: item.total_revenue,
+      }));
+      setDataExcel(formattedData);
+    }
+  }, [preData.data]);
+
+  console.log("dataExcel: ", dataExcel);
+
   return (
     <div className="flex flex-col h-[762px] py-2">
       <div className="flex flex-col w-full border rounded-lg p-5">
@@ -127,7 +159,9 @@ export default function Content() {
               <th>Tiền nước</th>
               <th>Tiền điện</th>
               <th>Tổng tiền</th>
-              <th></th>
+              <th>
+                <ExportExcel data={dataExcel} fileName={`BÁO CÁO HOÁ ĐƠN ĐIỆN NƯỚC THÁNG ${vnMonth}`} vnMonth={vnMonth}/>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -142,7 +176,7 @@ export default function Content() {
               </>
             ) : preData ? (
               preData?.data?.map((item, index) => (
-                <Item key={index} data={item} index={index}/>
+                <Item key={index} data={item} index={index} />
               ))
             ) : (
               <></>

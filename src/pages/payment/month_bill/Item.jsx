@@ -56,7 +56,7 @@ const Item = ({ data, index }) => {
     total_revenue: formatToVND(data.total_revenue),
   };
 
-  console.log(billData);
+  // console.log(billData);
 
   const handleSendEmail = () => {
     // key
@@ -86,7 +86,7 @@ const Item = ({ data, index }) => {
         total_revenue: billData.total_revenue,
       };
 
-      console.log("param email", templateParams);
+      // console.log("param email", templateParams);
 
       // Send email
 

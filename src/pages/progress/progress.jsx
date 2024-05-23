@@ -3,9 +3,6 @@ import TextInput from "./../../components/textInput";
 import { MdBlockFlipped } from "react-icons/md";
 import Add from "./Add";
 import Edit from "./Edit";
-<<<<<<< HEAD
-export default function Progerss() {
-=======
 import AddDonVi from "./AddDonVi";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -29,7 +26,7 @@ export default function Progress() {
   if (catalog.isFetching || listTenant.isFetching) return <p>Loading.....</p>;
 
   console.log(listTenant.data);
->>>>>>> 0ad391ba1a414e4643d44da79b8e024c6e181250
+ 
   return (
     <div className="bg-cover bg-center">
       <div className="w-full flex justify-center items-center">

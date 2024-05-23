@@ -15,6 +15,26 @@ const funcionData = [
     pathName: "setting",
     pageName: "Cài đặt"
   },
+  {
+    pathName: "water-rates",
+    pageName: "Đơn giá nước"
+  },
+  {
+    pathName: "num-water-electric",
+    pageName: "Chỉ số điện, nước"
+  },
+  {
+    pathName: "month-bills",
+    pageName: "Hoá đơn hàng tháng"
+  },
+  {
+    pathName: "insert-user",
+    pageName: "Tạo tài khoản"
+  },
+  {
+    pathName: "role",
+    pageName: "Phân quyền"
+  },
 ];
 
 const BreadCrumb = () => {

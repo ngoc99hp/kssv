@@ -26,7 +26,7 @@ export default function Add() {
   const mutation = useMutation({
     mutationFn: async (objects) => {
       return await axios({
-        url: import.meta.env.VITE_INSERT_ELECTRICITY_RATE,
+        url: import.meta.env.VITE_INSERT_WATER_RATE,
         method: "post",
         headers: {
           "content-type": "Application/json",
@@ -39,7 +39,7 @@ export default function Add() {
     },
     onSuccess: () => {
       setMutating(false);
-      queryClient.invalidateQueries({ queryKey: ["GET_ELECTRICITY_RATES"] });
+      queryClient.invalidateQueries({ queryKey: ["GET_WATER_RATES"] });
       setInsertData({
         rate: "",
         start_date: "",

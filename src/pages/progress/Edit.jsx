@@ -1,35 +1,104 @@
-import TextInput from "../../components/textInput";
-import { useReducer } from "react";
+import TextInput from "./../../components/textInput";
+import { useReducer, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import Select from "react-select";
 function Reducer(state, action) {
   switch (action.type) {
+    case "ma": {
+      return {
+        ...state,
+        ma: action.payload.value,
+      };
+    }
+
+    case "ho_dem": {
+      return {
+        ...state,
+        ho_dem: action.payload.value,
+      };
+    }
+
     case "ten": {
       return {
         ...state,
         ten: action.payload.value,
       };
     }
-    case "mo_ta": {
+
+    case "email": {
       return {
         ...state,
-        mo_ta: action.payload.value,
+        email: action.payload.value,
       };
     }
+
+    case "sdt": {
+      return {
+        ...state,
+        sdt: action.payload.value,
+      };
+    }
+
+    case "dia_chi": {
+      return {
+        ...state,
+        dia_chi: action.payload.value,
+      };
+    }
+
+    case "cccd": {
+      return {
+        ...state,
+        cccd: action.payload.value,
+      };
+    }
+
+    case "dvct": {
+      return {
+        ...state,
+        dvct: action.payload.value,
+      };
+    }
+
     case "reset": {
       return {
+        ma: "",
+        ho_dem: "",
         ten: "",
-        mo_ta: "",
+        email: "",
+        sdt: "",
+        dia_chi: "",
+        cccd: "",
+        dvct: "",
       };
     }
   }
 }
-export default function Edit() {
+export default function Edit({ rawData, gender, tenant }) {
+  const [selected, setSelected] = useState({
+    gender: {
+      value: gender.find((item) => item.id === rawData.gender_id).id,
+      label: gender.find((item) => item.id === rawData.gender_id).name,
+    },
+    tenant: {
+      value: tenant.find((item) => item.id === rawData.tenants_type_id).id,
+      label: tenant.find((item) => item.id === rawData.tenants_type_id).name,
+    },
+  });
   const [data, dispatchData] = useReducer(Reducer, {
+    ma: "",
+    ho_dem: "",
     ten: "",
-    mo_ta: "",
+    email: "",
+    sdt: "",
+    dia_chi: "",
+    cccd: "",
+    dvct: "",
   });
   return (
     <div>
-      <dialog id="edit" className="modal">
+      <dialog id={`edit_${rawData.code}`} className="modal">
         <div className="modal-box ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -47,7 +116,7 @@ export default function Edit() {
               </div>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                <TextInput
+                  <TextInput
                     value={data.mo_ta}
                     label={
                       <span>
@@ -85,9 +154,11 @@ export default function Edit() {
                   />
                   <TextInput
                     value={data.mo_ta}
-                    label={ <span>
-                      Email<span className="text-red-600"> *</span>
-                    </span>}
+                    label={
+                      <span>
+                        Email<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
                     id={"mo_ta"}
                     isRequire={true}
@@ -95,9 +166,11 @@ export default function Edit() {
                   />
                   <TextInput
                     value={data.mo_ta}
-                    label={ <span>
-                      Số điện thoại<span className="text-red-600"> *</span>
-                    </span>}
+                    label={
+                      <span>
+                        Số điện thoại<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
                     id={"mo_ta"}
                     isRequire={true}
@@ -105,9 +178,11 @@ export default function Edit() {
                   />
                   <TextInput
                     value={data.mo_ta}
-                    label={ <span>
-                      Địa chỉ<span className="text-red-600"> *</span>
-                    </span>}
+                    label={
+                      <span>
+                        Địa chỉ<span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
                     id={"mo_ta"}
                     isRequire={true}
@@ -115,19 +190,20 @@ export default function Edit() {
                   />
                   <TextInput
                     value={data.mo_ta}
-                    label={ <span>
-                      Số căn cước công dân<span className="text-red-600"> *</span>
-                    </span>}
+                    label={
+                      <span>
+                        Số căn cước công dân
+                        <span className="text-red-600"> *</span>
+                      </span>
+                    }
                     dispatch={dispatchData}
                     id={"mo_ta"}
                     isRequire={true}
                     action={"mo_ta"}
                   />
-                   <TextInput
+                  <TextInput
                     value={data.mo_ta}
-                    label={ <span>
-                      Đơn vị công tác
-                    </span>}
+                    label={<span>Đơn vị công tác</span>}
                     dispatch={dispatchData}
                     id={"mo_ta"}
                     isRequire={true}

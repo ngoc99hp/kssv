@@ -10,12 +10,10 @@ import {
   Routes,
   Outlet,
   Route,
-  Navigate,
-  useNavigate,
 } from "react-router-dom";
 
 import { useState } from "react";
-import { Layout, Button, theme, Breadcrumb } from "antd";
+import { Layout, Button, theme} from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 
 // import "./App.css";
@@ -23,10 +21,7 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import {
   SignedIn,
   SignedOut,
-  SignInButton,
-  UserButton,
   SignOutButton,
-  RedirectToSignIn,
 } from "@clerk/clerk-react";
 
 //Sign In
@@ -41,6 +36,8 @@ import PayMoney from "./pages/payment/payMoney/PayMoney";
 import ElectricityRates from "./pages/setting/electricity_rates/ElectricityRates";
 import WaterRates from "./pages/setting/water_rates/WaterRates";
 import Progress from "./pages/progress/progress";
+import SelectRoom from "./pages/selectRoom/selectRoom";
+import Report from "./pages/report/report";
 //COmponent
 import ToggleThemeButton from "./components/ToggleThemeButton";
 import Logo from "./components/Logo";
@@ -148,6 +145,8 @@ function App() {
               <Route path="/progress" element={<Progress />} />
               <Route path="/setting/electricity-rates" element={<ElectricityRates />} />
               <Route path="/water-rates" element={<WaterRates />} />
+              <Route path="/select-room" element={<SelectRoom />} />
+              <Route path="/report" element={<Report />} />
             </Route>
             <Route path="/sign-in" element={<SignInPage />} />
           </Routes>

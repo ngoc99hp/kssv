@@ -47,11 +47,29 @@ const MenuList = ({ darkTheme }) => {
         }
       ]
     },
+    // {
+    //   key: 'Quản lý danh mục',
+    //   icon: <AreaChartOutlined />,
+    //   label: 'Quản lý danh mục',
+    //   onClick: () => navigate("/category")
+    // },
     {
       key: 'Thông tin người thuê',
       icon: <AreaChartOutlined />,
       label: 'Thông tin người thuê',
       onClick: () => navigate("/progress")
+    },
+    {
+      key: 'Phân phòng',
+      icon: <AreaChartOutlined />,
+      label: 'Phân phòng',
+      onClick: () => navigate("/select-room")
+    },
+    {
+      key: 'Thống kê',
+      icon: <AreaChartOutlined />,
+      label: 'Thống kê',
+      onClick: () => navigate("/report")
     },
     {
       key: 'payment',

@@ -61,7 +61,7 @@ const SignInPage = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] bg-transparent text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
             />
             {progress === "blankEmail" ? (
               <p style={{ color: "red", fontSize: "14px" }}>
@@ -88,7 +88,7 @@ const SignInPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               name="password"
               autoComplete="on"
-              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] bg-transparent text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 outline-0"
             />
             {progress === "Enter password." && email !== "" ? (
               <p style={{ color: "red", fontSize: "14px" }}>

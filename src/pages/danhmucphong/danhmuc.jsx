@@ -29,7 +29,7 @@ export default function Progerss() {
       </div>
 
       <div className="flex justify-center items-center">
-        <div className=" mx-auto  max-w-3xl space-y-6  p-6 rounded-lg ">
+        <div className="w-full ">
           <div className="flex justify-center items-center font-semibold text-2xl">
             DANH MỤC PHÒNG
           </div>
@@ -76,11 +76,11 @@ export default function Progerss() {
                       <td>{room.max_tenant}</td>
                       <td>{room.room_price.toLocaleString('vi-VN')}</td>
                       <td className="lg:tooltip" data-tip="Sửa">
-                      <FiEdit3
+                      {/* <FiEdit3
                         onClick={() =>
                           document.getElementById("edit").showModal()
                         }
-                      />
+                      /> */}
                       </td>
                     </tr>
                   ))
@@ -88,7 +88,7 @@ export default function Progerss() {
               </tbody>
             </table>
           </div>
-        </div>
+       </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import TextInput from "../../components/textInput";
 import { useReducer } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation,useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-toastify";
 function Reducer(state, action) {
   switch (action.type) {
     case "name": {
@@ -36,6 +37,7 @@ function Reducer(state, action) {
   }
 }
 export default function Add() {
+  const queryClient = useQueryClient();
   const [data, dispatchData] = useReducer(Reducer, {
     name: "",
     description: "",
@@ -50,9 +52,9 @@ export default function Add() {
           body:JSON.stringify({
             objects:
               {
-                name:"áhdjkahsd",
-                description:"akjshdkja",
-                total_room:24,
+                name:data.name,
+                description:data.description,
+                total_room:data.total_room,
               }
             
           })
@@ -70,10 +72,29 @@ export default function Add() {
       }
     },
     onSuccess: () => {
+      document.getElementById("my_modal_3").close();
+      queryClient.invalidateQueries(["get_datakhunha"]);
+      dispatchData({
+        type: "reset", 
+      });
       console.log("ok");
+      toast.success("Tạo mới thành công!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        theme: "light",
+      })
     },
     onError: () => {
-      console.log(2);
+      // console.log(2);
+      toast.error("Tạo mới không thành công!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        theme: "light",
+      });
     },
   });
 
@@ -106,7 +127,7 @@ export default function Add() {
                     value={data.name}
                     label={
                       <span>
-                        Tên tòa nhà <span className="text-red-600"> *</span>
+                        Tên khu nhà <span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}

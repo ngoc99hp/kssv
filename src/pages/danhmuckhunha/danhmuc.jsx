@@ -8,6 +8,23 @@ import { useEffect, useState } from "react";
 import { useAuth, useClerk } from "@clerk/clerk-react";
 export default function Progerss() {
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const callApi = async () => {
+      await fetch(`${import.meta.env.VITE_DANHMUCKHUNHA}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body:JSON.stringify({masv:'1912101003'})
+      })
+        .then((response) => response.json())
+        .then((res) => setData(res.result));
+    };
+    callApi();
+    console.log("data", data);
+  }, []);
+
   const datakhunha = useQuery({
     queryKey: ["get_datakhunha"],
     queryFn: async () => {
@@ -27,7 +44,7 @@ export default function Progerss() {
         throw error;
       }
     },
-    // initialData: () => ({ data: data }),
+    initialData: () => ({ data: data }),
   });
   // useEffect(() => {
   //   const callApi = async () => {
@@ -50,7 +67,7 @@ export default function Progerss() {
       </div>
 
       <div className="flex justify-center items-center">
-        <div className=" mx-auto  max-w-3xl space-y-6  p-6 rounded-lg ">
+        <div className=" w-full ">
           <div className="flex justify-center items-center font-semibold text-2xl">
             DANH MỤC KHU NHÀ
           </div>
@@ -70,7 +87,7 @@ export default function Progerss() {
                   <thead>
                     <tr>
                       <th>STT</th>
-                      <th>Tên tòa nhà</th>
+                      <th>Tên khu nhà</th>
                       <th>Mô tả</th>
                       <th>Tống số phòng</th>
 
@@ -83,14 +100,14 @@ export default function Progerss() {
                         <th>{index + 1}</th>
                         <td>{item.name}</td>
                         <td>{item.description}</td>
-                        <td>{item.total_room}</td>
-                        <td className="lg:tooltip" data-tip="Sửa">
+                        <td className="flex justify-center"> {item.total_room}</td>
+                        {/* <td className="lg:tooltip" data-tip="Sửa">
                           <FiEdit3
                             onClick={() =>
                               document.getElementById("edit").showModal()
                             }
                           />
-                        </td>
+                        </td> */}
                         {/* <td className="lg:tooltip" data-tip="Dừng tài khoản" ><MdBlockFlipped  className="text-red-500" /></td>
                       <td><Edit/></td> */}
                       </tr>

@@ -134,7 +134,7 @@ export default function Add({ gender, tenant }) {
           <div className="bg-cover bg-center flex justify-center items-center">
             <div className=" mx-auto  max-w-2xl space-y-6  p-6 rounded-lg bg-white bg-opacity-80">
               <div className="space-y-2 text-center">
-                <h1 className="text-3xl font-bold ">Đăng ký tài khoản</h1>
+                <h1 className="text-3xl font-bold ">Đăng ký nội trú</h1>
                 <p className="text-gray-500 dark:text-gray-500">
                   Hệ thống kiểm soát vào ra
                 </p>
@@ -145,7 +145,7 @@ export default function Add({ gender, tenant }) {
                     value={data.ma}
                     label={
                       <span>
-                        Mã người thuê <span className="text-red-600"> *</span>
+                        Mã <span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}

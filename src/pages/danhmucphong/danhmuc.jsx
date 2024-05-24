@@ -24,7 +24,7 @@ export default function Progerss() {
     <div className="bg-cover bg-center">
       <div className="flex justify-between">
         {" "}
-        <Add />
+        <Add area={data}/>
         {/* <AddDonVi /> */}
       </div>
 

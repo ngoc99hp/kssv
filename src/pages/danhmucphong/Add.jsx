@@ -1,23 +1,10 @@
 import TextInput from "../../components/textInput";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import Select from "react-select";
 function Reducer(state, action) {
   switch (action.type) {
-    case "ma": {
-      return {
-        ...state,
-        ma: action.payload.value,
-      };
-    }
-
-    case "ho_dem": {
-      return {
-        ...state,
-        ho_dem: action.payload.value,
-      };
-    }
-
     case "ten": {
       return {
         ...state,
@@ -25,69 +12,54 @@ function Reducer(state, action) {
       };
     }
 
-    case "email": {
+    case "tong_so_nguoi": {
       return {
         ...state,
-        email: action.payload.value,
+        tong_so_nguoi: action.payload.value,
       };
     }
-
-    case "sdt": {
+    case "gia_tien": {
       return {
         ...state,
-        sdt: action.payload.value,
-      };
-    }
-
-    case "dia_chi": {
-      return {
-        ...state,
-        dia_chi: action.payload.value,
-      };
-    }
-
-    case "cccd": {
-      return {
-        ...state,
-        cccd: action.payload.value,
-      };
-    }
-
-    case "dvct": {
-      return {
-        ...state,
-        dvct: action.payload.value,
+        gia_tien: action.payload.value,
       };
     }
 
     case "reset": {
       return {
-        ma: "",
-        ho_dem: "",
         ten: "",
-        email: "",
-        sdt: "",
-        dia_chi: "",
-        cccd: "",
-        dvct: "",
+        tong_so_nguoi: "",
+        gia_tien: "",
       };
     }
   }
 }
-export default function Add() {
+export default function Add({ area }) {
+  // console.log(area)
+  const [selected, setSelected] = useState(null);
   const [data, dispatchData] = useReducer(Reducer, {
-    ma: "",
-    ho_dem: "",
     ten: "",
-    email: "",
-    sdt: "",
-    dia_chi: "",
-    cccd: "",
-    dvct: "",
+    tong_so_nguoi: "",
+    gia_tien: "",
   });
 
+  console.log(import.meta.env.VITE_INSERT_ROOM);
+
   const mutation = useMutation({
-    mutationFn: () => axios({ url: "/api/ncheck", method: "post", data }),
+    mutationFn: () =>
+      axios({
+        url: import.meta.env.VITE_INSERT_ROOM,
+        method: "post",
+        data: {
+          objects: {
+            code: data.ten,
+            name: data.ten,
+            room_price: data.gia_tien,
+            area_id: selected.value,
+            max_tenant: data.tong_so_nguoi,
+          },
+        },
+      }),
     onSuccess: () => {
       console.log(1);
     },
@@ -115,47 +87,64 @@ export default function Add() {
           <div className="bg-cover bg-center flex justify-center items-center">
             <div className="    space-y-6  p-6 rounded-lg bg-white bg-opacity-80">
               <div className="space-y-2 text-center">
-                <h1 className="text-3xl font-bold ">
-                   Thêm mới Danh mục khu nhà
-                </h1>
+                <h1 className="text-3xl font-bold ">Thêm mới Danh mục phòng</h1>
               </div>
               <div className="space-y-4">
                 <div className="gap">
                   <TextInput
-                    value={data.ma}
+                    value={data.ten}
                     label={
                       <span>
-                        Tên tòa nhà <span className="text-red-600"> *</span>
+                        Tên phòng <span className="text-red-600"> *</span>
                       </span>
                     }
                     dispatch={dispatchData}
-                    id={"ma"}
+                    id={"ten"}
                     isRequire={true}
-                    action={"ma"}
+                    action={"ten"}
+                  />
+                  <Select
+                    placeholder="Thuộc khu"
+                    className="text-black text-sm my-5"
+                    classNames={{
+                      control: () => "!rounded-[5px]",
+                      input: () => "!pr-2.5 !pb-2.5 !pt-4 !m-0",
+                      valueContainer: () => "!p-[0_8px]",
+                      menu: () => "!z-[11]",
+                    }}
+                    options={area.map((item) => ({
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                    value={selected}
+                    onChange={(e) => setSelected(e)}
                   />
                   <TextInput
-                    value={data.ma}
+                    value={data.tong_so_nguoi}
                     label={
                       <span>
-                        Mô tả <span className="text-red-600"> *</span>
+                        Tổng số người tối đa{" "}
+                        <span className="text-red-600"> *</span>
                       </span>
                     }
+                    type={"number"}
                     dispatch={dispatchData}
-                    id={"ma"}
+                    id={"tong_so_nguoi"}
                     isRequire={true}
-                    action={"ma"}
+                    action={"tong_so_nguoi"}
                   />
                   <TextInput
-                    value={data.ma}
+                    value={data.gia_tien}
                     label={
                       <span>
-                       Tổng số phòng <span className="text-red-600"> *</span>
+                        Giá tiền(VND) <span className="text-red-600"> *</span>
                       </span>
                     }
+                    type={"number"}
                     dispatch={dispatchData}
-                    id={"ma"}
+                    id={"gia_tien"}
                     isRequire={true}
-                    action={"ma"}
+                    action={"gia_tien"}
                   />
                 </div>
                 <div className="flex justify-center items-center ">
